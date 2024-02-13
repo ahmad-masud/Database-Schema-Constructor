@@ -1,25 +1,20 @@
 import './Content.css';
-import { useState, useEffect, useRef  } from 'react';
+import Table from '../Table/Table.js'; // Adjust the import path as necessary
 
-function Content() {
-    const [databaseName, setdatabaseName] = useState('');
-    const promptShown = useRef(false);
-
-    useEffect(() => {
-        if (!promptShown.current) {
-            const name = prompt("Enter the name of your database:",);
-            if (name) { 
-                setdatabaseName(name);
-            }
-            promptShown.current = true;
-        }
-    }, []); 
-
+function Content({ tables, onDeleteTable, onUpdateTable }) {
     return (
-    <div className='content'>
-
-    </div>
+        <div className="content">
+            {tables.map((table) => (
+                <Table
+                    key={table.id}
+                    table={table}
+                    onDeleteTable={onDeleteTable} // Pass the function to each Table
+                    onUpdateTable={onUpdateTable}
+                />
+            ))}
+        </div>
     );
 }
+  
 
 export default Content;

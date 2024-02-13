@@ -1,0 +1,6 @@
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust minmax values based on your preference */
+    gap: 20px; /* Space between grid items */
+    padding: 20px; /* Padding around the entire grid */
+}

@@ -6,11 +6,11 @@
 }
 
 .header {
-    width: 95%;
+    width: 97.5%;
     height: 100%;
     margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     display: flex;
 }
@@ -33,4 +33,20 @@
     font-weight: bold;
     font-size: 1.25rem;
     text-transform: uppercase;
+}
+
+.header-buttons {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25em;
 }
