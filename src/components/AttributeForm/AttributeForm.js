@@ -1,7 +1,7 @@
 import './AttributeForm.css';
 import { useState } from 'react';
 
-function AttributeForm({ onSubmit }) {
+function AttributeForm({ onCancel, onSubmit }) {
   const [attributeName, setAttributeName] = useState('');
   const [attributeType, setAttributeType] = useState('INT');
   const [attributeLength, setAttributeLength] = useState('');
@@ -109,8 +109,10 @@ function AttributeForm({ onSubmit }) {
                     onChange={(e) => setAttributePrimaryKey(e.target.checked)}
                     /> Primary Key
                 </label>
-                {/* Include other checkboxes for constraints */}
-                <button type="submit">Add Attribute</button>
+                <div className='form-buttons-container'>
+                  <button className="submit-button" type="submit">Submit</button>
+                  <button className="cancel-button" type="button" onClick={onCancel}>Cancel</button>
+                </div>
             </form>
         </div>
     </div>

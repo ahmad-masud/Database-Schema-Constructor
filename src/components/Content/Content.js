@@ -1,7 +1,7 @@
 import './Content.css';
 import Table from '../Table/Table.js'; // Adjust the import path as necessary
 
-function Content({ tables, onDeleteTable, onUpdateTable }) {
+function Content({ tables, onDeleteTable, onUpdateTable, allTableNames, onAddAttribute, onDeleteAttribute }) {
     return (
         <div className="content">
             {tables.map((table) => (
@@ -10,11 +10,13 @@ function Content({ tables, onDeleteTable, onUpdateTable }) {
                     table={table}
                     onDeleteTable={onDeleteTable} // Pass the function to each Table
                     onUpdateTable={onUpdateTable}
+                    allTableNames={allTableNames}
+                    onAddAttribute={onAddAttribute}
+                    onDeleteAttribute={onDeleteAttribute}
                 />
             ))}
         </div>
     );
 }
-  
 
 export default Content;

@@ -4,8 +4,8 @@
     border: 1px solid #ddd; /* Border around the table */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    margin-bottom: 20px; /* Space between tables, if displayed in a list */
     overflow: hidden;
+    min-height: 100px;
 }
   
 .table-header {
@@ -34,20 +34,25 @@
     background: none;
 }
   
-.table-header-button:hover {
-    filter: brightness(0.75)
-}
-  
 .attribute-list {
     list-style: none; /* Remove default list styling */
-    padding-left: 0; /* Remove default padding */
+    padding: 5px;
 }
 
-.attribute-list li {
-    padding: 10px; /* Padding around each attribute */
-    border-bottom: 1px solid #eee; /* Separator between attributes */
+.attribute-list .attribute {
+    border-bottom: 1px solid black; /* Separator between attributes */
+    display: flex;
+    justify-content: space-between;
 }
   
-.attribute-list li:last-child {
+.attribute-list .attribute:last-child {
     border-bottom: none; /* Remove bottom border from the last item */
+}
+
+.attribute-action-button {
+    font-size: 1em; /* Button text size */
+    color: black; /* Button text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    background: none;
 }

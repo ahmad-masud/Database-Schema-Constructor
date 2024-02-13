@@ -21,6 +21,7 @@
     z-index: 1001; /* Above the overlay */
     width: 90%; /* Adjust based on your preference */
     max-width: 500px; /* Adjust based on your preference */
+    margin: 10px;
 }
 
 /* Style form elements */
@@ -28,20 +29,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px; /* Increase the gap between form elements */
-}
-
-.form-container input[type="text"],
-.form-container select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.form-container select option {
-    padding: 10px;
-    font-size: 1em;
-    margin-bottom: 50px; /* Add space between options */
 }
 
 .form-container label {

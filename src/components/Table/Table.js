@@ -1,30 +1,49 @@
 import './Table.css'; // Ensure you have a CSS file for styling
 import AttributeForm from '../AttributeForm/AttributeForm.js'; // Adjust the import path as needed
 import { useState } from 'react';
+import GenericForm from '../GenericForm/GenericForm.js'; // Adjust the path as needed
 
-function Table({ table, onAddAttribute, onDeleteTable, onUpdateTable }) {
+function Table({ table, onAddAttribute, onDeleteTable, onUpdateTable, allTableNames, onDeleteAttribute, color }) {
   const [isAttributeFormVisible, setIsAttributeFormVisible] = useState(false);
-  const handleAddAttribute = (attributeDetails) => {
-    onAddAttribute(table.id, attributeDetails);
-  };
+  const [isEditFormVisible, setIsEditFormVisible] = useState(false);
 
   const handleEditTableDetails = () => {
-    const newName = prompt('Enter new table name:', table.name);
-    if (newName) {
+    setIsEditFormVisible(true); // Show the form instead of using prompt
+  };  
+
+  const handleDelete = () => {
+    onDeleteTable(table.id);
+  };
+
+  const handleUpdateName = (newName) => {
+    const isDuplicate = allTableNames.some(name => name.toLowerCase() === newName.toLowerCase() && name !== table.name);
+    if (!isDuplicate) {
       onUpdateTable(table.id, newName);
+      setIsEditFormVisible(false); // Hide form after successful update
+    } else {
+      alert("Table name already exists. Please choose a different name.");
     }
   };
 
-  const handleDelete = () => {
-    // Confirm before deleting
-    if (window.confirm(`Are you sure you want to delete the table "${table.name}"?`)) {
-      onDeleteTable(table.id);
-    }
+  const handleDeleteAttribute = (attributeIndex) => {
+    // Create a new array without the attribute to be deleted
+    const updatedAttributes = table.attributes.filter((_, index) => index !== attributeIndex);
+    // Update the table's attributes list with this new array
+    onDeleteAttribute(table.id, updatedAttributes);
   };
+  
 
   return (
     <div className="table-container">
-      <div className="table-header">
+      {isEditFormVisible && (
+        <GenericForm
+          placeholder="Enter new table name"
+          initialValue={table.name}
+          onSubmit={handleUpdateName}
+          onCancel={() => setIsEditFormVisible(false)}
+        />
+      )}
+      <div className="table-header" style={{background: color}}>
         <h2 className='table-name'>{table.name}</h2>
         <div className='tabler-header-buttons'>
           <button className='table-header-button' onClick={() => setIsAttributeFormVisible(true)}><i className="fa-solid fa-plus"></i></button>
@@ -32,19 +51,22 @@ function Table({ table, onAddAttribute, onDeleteTable, onUpdateTable }) {
           <button className='table-header-button' onClick={handleDelete}><i className="fa-solid fa-trash-can"></i></button>
         </div>
       </div>
-      {isAttributeFormVisible && <AttributeForm onSubmit={(attributeDetails) => {
-        handleAddAttribute(attributeDetails);
-        setIsAttributeFormVisible(false); // Close modal upon form submission
-      }} />}
+      {isAttributeFormVisible && <AttributeForm 
+          onCancel={() => setIsAttributeFormVisible(false)}
+          onSubmit={(attributeDetails) => {
+              // Correctly pass table.id and attributeDetails to the onAddAttribute prop
+              onAddAttribute(table.id, attributeDetails);
+              setIsAttributeFormVisible(false); // Close modal upon form submission
+          }} 
+      />}
       <ul>
         {table.attributes.map((attribute, index) => (
-          <li className='attribute-list' key={index}>
-            {`${attribute.name} - ${attribute.type}${attribute.length ? ` (${attribute.length})` : ''}${attribute.defaultValue ? `, Default: ${attribute.defaultValue}` : ''}`}
-            {`${attribute.constraints.notNull ? ', Not Null' : ''}`}
-            {`${attribute.constraints.unique ? ', Unique' : ''}`}
-            {`${attribute.constraints.primaryKey ? ', Primary Key' : ''}`}
-            {`${attribute.constraints.autoIncrement ? ', Auto Increment' : ''}`}
-          </li>
+          <ul className='attribute-list'>
+            <li className='attribute' key={index}>
+              {`${attribute.name} (${attribute.type})`}
+                <button onClick={() => handleDeleteAttribute(index)} className="attribute-action-button"><i className="fa-solid fa-trash-can"></i></button>
+            </li>
+          </ul>
         ))}
       </ul>
     </div>
