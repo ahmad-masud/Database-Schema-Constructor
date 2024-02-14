@@ -13,6 +13,7 @@ function Content({ tables, onDeleteTable, onUpdateTable, allTableNames, onAddAtt
                     allTableNames={allTableNames}
                     onAddAttribute={onAddAttribute}
                     onDeleteAttribute={onDeleteAttribute}
+                    color={table.color}
                 />
             ))}
         </div>

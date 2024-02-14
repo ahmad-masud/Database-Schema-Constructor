@@ -6,7 +6,7 @@ function Header({ onAddTable, onDeleteDatabase, onEditDatabaseName, onDownloadDa
         <div className='header-container'>
             <div className='header'>
                 <div className='header-title'>
-                    <img src={'icon.webp'} alt='Logo' className='header-title-logo'></img>
+                    <i className="header-title-logo fa-solid fa-database"></i>
                     <span className='header-title-text'>{databaseName}</span>
                     <button className='header-button' onClick={onEditDatabaseName}><i className="fa-solid fa-pen-to-square"></i></button>
                 </div>

@@ -8,14 +8,66 @@ import Prompt from './components/Prompt/Prompt.js';
 
 function App() {
   const [tables, setTables] = useState([]);
-  const [databaseName, setDatabaseName] = useState("MyDatabase");
+  const [databaseName, setDatabaseName] = useState();
   const [showForm, setShowForm] = useState(false); // State to control form visibility
   const [formAction, setFormAction] = useState(''); // State to determine form action (addTable or editDatabaseName)
   const [showPrompt, setShowPrompt] = useState(false);
   const [promptQuestion, setPromptQuestion] = useState('');
 
-  useEffect(() => { 
-    showEditDatabaseNameForm();
+  function generateSqlQuery(databaseName, tables) {
+    let sql = `CREATE DATABASE IF NOT EXISTS ${databaseName};\nUSE ${databaseName};\n\n`;
+    tables.forEach(table => {
+      sql += `CREATE TABLE ${table.name} (\n`;
+      table.attributes.forEach((attr, index) => {
+        // Construct the SQL line for each attribute
+        let attrSql = `  ${attr.name} ${attr.type}`;
+        if (attr.length) {
+          attrSql += `(${attr.length})`;
+        }
+        if (attr.constraints.notNull) {
+          attrSql += ` NOT NULL`;
+        }
+        if (attr.constraints.unique) {
+          attrSql += ` UNIQUE`;
+        }
+        if (attr.constraints.primaryKey) {
+          attrSql += ` PRIMARY KEY`;
+        }
+        if (attr.constraints.autoIncrement) {
+          attrSql += ` AUTO_INCREMENT`;
+        }
+        if (attr.defaultValue) {
+          attrSql += ` DEFAULT '${attr.defaultValue}'`;
+        }
+        sql += attrSql + (index < table.attributes.length - 1 ? ',' : '') + '\n';
+      });
+      sql += `);\n\n`;
+    });
+    return sql;
+  }  
+  
+  function downloadSqlQuery(sql) {
+    const blob = new Blob([sql], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${databaseName}.sql`; // Use the database name in the filename
+    document.body.appendChild(a);
+    a.click();
+    
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  
+
+  const randomColor = () => {
+    const colors = ["DarkRed", "DarkGreen", "DarkBlue"];
+    return colors[tables.length % colors.length];
+  };
+
+  useEffect(() => {
+      showEditDatabaseNameForm();
   }, []);
 
   const handleFormSubmit = (inputValue) => {
@@ -29,6 +81,7 @@ function App() {
         const newTable = {
           id: tables.length + 1,
           name: inputValue,
+          color: randomColor(),
           attributes: [],
         };
         setTables([...tables, newTable]);
@@ -57,16 +110,19 @@ function App() {
   };
 
   const handleConfirm = () => {
+    setDatabaseName('');
     setTables([]);
-    window.location.reload();
+    setShowPrompt(false);
+    showEditDatabaseNameForm();
   };
-
+  
   const handleCancel = () => {
     setShowPrompt(false);
   };
 
   const handleDownloadDatabase = () => {
-    alert("Download functionality will be implemented here.");
+    const sql = generateSqlQuery(databaseName, tables);
+    downloadSqlQuery(sql);
   };
 
   const handleDeleteTable = (tableId) => {

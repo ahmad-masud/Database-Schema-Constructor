@@ -6,6 +6,8 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
     overflow: hidden;
     min-height: 100px;
+    min-width: 200px;
+    cursor: move;
 }
   
 .table-header {
@@ -40,13 +42,8 @@
 }
 
 .attribute-list .attribute {
-    border-bottom: 1px solid black; /* Separator between attributes */
     display: flex;
     justify-content: space-between;
-}
-  
-.attribute-list .attribute:last-child {
-    border-bottom: none; /* Remove bottom border from the last item */
 }
 
 .attribute-action-button {
@@ -55,4 +52,10 @@
     border: none; /* Remove border */
     cursor: pointer; /* Pointer cursor on hover */
     background: none;
+}
+
+@media screen and (max-width: 600px) {
+    .table-container {
+        cursor: default;
+    }  
 }

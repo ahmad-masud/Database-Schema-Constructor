@@ -4,8 +4,8 @@
 }
  
 :root {
-   --accent-color: IndianRed;
-   --font-color: black;
+   --accent-color: DarkSlateGray;
+   --button-color: #007bff;
 }
 
 body {
