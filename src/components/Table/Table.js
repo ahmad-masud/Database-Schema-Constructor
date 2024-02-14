@@ -110,15 +110,25 @@ function Table({ table, onAddAttribute, onDeleteTable, onUpdateTable, allTableNa
             <button className='table-header-button' onClick={handleDelete}><i className="fa-solid fa-xmark"></i></button>
           </div>
         </div>
-        <ul>
-          {table.attributes.map((attribute, index) => (
-            <ul className='attribute-list'>
+        <ul className='attribute-list'>
+          {table.attributes.map((attribute, index) => {
+            // Construct a string with constraints
+            let constraints = [];
+            if (attribute.constraints.notNull) constraints.push("NOT NULL");
+            if (attribute.constraints.unique) constraints.push("UNIQUE");
+            if (attribute.constraints.primaryKey) constraints.push("PRIMARY KEY");
+            if (attribute.constraints.autoIncrement) constraints.push("AUTO_INCREMENT");
+
+            // Join the constraints with commas and enclose in brackets if there are any
+            const constraintsStr = constraints.length > 0 ? ` (${constraints.join(", ")})` : "";
+
+            return (
               <li className='attribute' key={index}>
-                {`${attribute.name} (${attribute.type})`}
-                  <button onClick={() => handleDeleteAttribute(index)} className="attribute-action-button"><i className="fa-solid fa-xmark"></i></button>
+                {`${attribute.name} (${attribute.type}${attribute.length ? `(${attribute.length})` : ''})${constraintsStr}`}
+                <button onClick={() => handleDeleteAttribute(index)} className="attribute-action-button"><i className="fa-solid fa-xmark"></i></button>
               </li>
-            </ul>
-          ))}
+            );
+          })}
         </ul>
       </div>
     </div>

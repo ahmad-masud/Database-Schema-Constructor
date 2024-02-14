@@ -8,7 +8,7 @@ import Prompt from './components/Prompt/Prompt.js';
 
 function App() {
   const [tables, setTables] = useState([]);
-  const [databaseName, setDatabaseName] = useState();
+  const [databaseName, setDatabaseName] = useState("mydatabase");
   const [showForm, setShowForm] = useState(false); // State to control form visibility
   const [formAction, setFormAction] = useState(''); // State to determine form action (addTable or editDatabaseName)
   const [showPrompt, setShowPrompt] = useState(false);
@@ -62,7 +62,7 @@ function App() {
   
 
   const randomColor = () => {
-    const colors = ["DarkRed", "DarkGreen", "DarkBlue"];
+    const colors = ["red", "green", "blue"];
     return colors[tables.length % colors.length];
   };
 
@@ -132,7 +132,7 @@ function App() {
 
   const handleUpdateTable = (tableId, newName, newColor) => {
     setTables(prevTables => prevTables.map(table => 
-      table.id === tableId ? { ...table, name: newName, color: newColor } : table
+      table.id === tableId ? { ...table, name: newName } : table
     ));
   };  
 

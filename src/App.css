@@ -4,13 +4,13 @@
 }
  
 :root {
-   --accent-color: DarkSlateGray;
+   --accent-color: #1E3050;
    --button-color: #007bff;
 }
 
 body {
    margin: 0;
-   font-family: 'optimistic_display';
+   font-family: Arial, Helvetica, sans-serif;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
 }

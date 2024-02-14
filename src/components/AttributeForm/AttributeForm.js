@@ -42,72 +42,79 @@ function AttributeForm({ onCancel, onSubmit }) {
         <div className="form-container">
             <form onSubmit={handleSubmit}>
                 <input
-                    type="text"
-                    placeholder="Name"
-                    value={attributeName}
-                    onChange={(e) => setAttributeName(e.target.value)}
-                    required
+                  type="text"
+                  placeholder="Name"
+                  value={attributeName}
+                  onChange={(e) => setAttributeName(e.target.value)}
+                  required
                 />
                 <select
-                    value={attributeType}
-                    onChange={(e) => setAttributeType(e.target.value)}
-                    required>
-                    <option value="INTEGER">INT</option>
-                    <option value="SMALLINT">SMALLINT</option>
-                    <option value="BIGINT">BIGINT</option>
-                    <option value="DECIMAL">DECIMAL</option>
-                    <option value="FLOAT">FLOAT</option>
-                    <option value="DOUBLE">DOUBLE</option>
-                    <option value="CHAR">CHAR</option>
-                    <option value="VARCHAR">VARCHAR</option>
-                    <option value="TEXT">TEXT</option>
-                    <option value="ENUM">ENUM</option>
-                    <option value="SET">SET</option>
-                    <option value="DATE">DATE</option>
-                    <option value="TIME">TIME</option>
-                    <option value="DATETIME">DATETIME</option>
-                    <option value="TIMESTAMP">TIMESTAMP</option>
-                    <option value="BOOLEAN">BOOLEAN</option>
-                    <option value="BINARY">BINARY</option>
-                    <option value="VARBINARY">VARBINARY</option>
-                    <option value="BLOB">BLOB</option>
-                    <option value="GEOMETRY">GEOMETRY</option>
-                    <option value="POINT">POINT</option>
-                    <option value="LINESTRING">LINESTRING</option>
-                    <option value="POLYGON">POLYGON</option>
+                  value={attributeType}
+                  onChange={(e) => setAttributeType(e.target.value)}
+                  required>
+                  <option value="INTEGER">INT</option>
+                  <option value="SMALLINT">SMALLINT</option>
+                  <option value="BIGINT">BIGINT</option>
+                  <option value="DECIMAL">DECIMAL</option>
+                  <option value="FLOAT">FLOAT</option>
+                  <option value="DOUBLE">DOUBLE</option>
+                  <option value="CHAR">CHAR</option>
+                  <option value="VARCHAR">VARCHAR</option>
+                  <option value="TEXT">TEXT</option>
+                  <option value="ENUM">ENUM</option>
+                  <option value="SET">SET</option>
+                  <option value="DATE">DATE</option>
+                  <option value="TIME">TIME</option>
+                  <option value="DATETIME">DATETIME</option>
+                  <option value="TIMESTAMP">TIMESTAMP</option>
+                  <option value="BOOLEAN">BOOLEAN</option>
+                  <option value="BINARY">BINARY</option>
+                  <option value="VARBINARY">VARBINARY</option>
+                  <option value="BLOB">BLOB</option>
+                  <option value="GEOMETRY">GEOMETRY</option>
+                  <option value="POINT">POINT</option>
+                  <option value="LINESTRING">LINESTRING</option>
+                  <option value="POLYGON">POLYGON</option>
                 </select>
                 <input
-                    type="text"
-                    placeholder="Length"
-                    value={attributeLength}
-                    onChange={(e) => setAttributeLength(e.target.value)}
+                  type="text"
+                  placeholder="Length"
+                  value={attributeLength}
+                  onChange={(e) => setAttributeLength(e.target.value)}
                 />
                 <input
-                    type="text"
-                    placeholder="Default Value"
-                    value={attributeDefaultValue}
-                    onChange={(e) => setAttributeDefaultValue(e.target.value)}
+                  type="text"
+                  placeholder="Default Value"
+                  value={attributeDefaultValue}
+                  onChange={(e) => setAttributeDefaultValue(e.target.value)}
                 />
                 <label>
-                    <input
+                  <input
                     type="checkbox"
                     checked={attributeNotNull}
                     onChange={(e) => setAttributeNotNull(e.target.checked)}
-                    /> Not Null
+                  /> Not Null
                 </label>
                 <label>
-                    <input
+                  <input
                     type="checkbox"
                     checked={attributeUnique}
                     onChange={(e) => setAttributeUnique(e.target.checked)}
-                    /> Unique
+                  /> Unique
                 </label>
                 <label>
-                    <input
+                  <input
                     type="checkbox"
                     checked={attributePrimaryKey}
                     onChange={(e) => setAttributePrimaryKey(e.target.checked)}
-                    /> Primary Key
+                  /> Primary Key
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={attributeAutoIncrement}
+                    onChange={(e) => setAttributeAutoIncrement(e.target.checked)}
+                  /> Auto Increment
                 </label>
                 <div className='form-buttons-container'>
                   <button className="submit-button" type="submit">Submit</button>
